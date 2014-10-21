@@ -1,4 +1,4 @@
-// Copyright 2013 bee authors
+// Copyright 2013 mbee authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License"): you may
 // not use this file except in compliance with the License. You may obtain
@@ -37,9 +37,9 @@ import (
 var cmdPack = &Command{
 	CustomFlags: true,
 	UsageLine:   "pack",
-	Short:       "compress an beego project",
+	Short:       "compress an martini project",
 	Long: `
-compress an beego project
+compress an martini project
 
 -p            app path. default is current path
 -b            build specify platform app. default true
@@ -451,10 +451,10 @@ func packDirectory(excludePrefix []string, excludeSuffix []string,
 	return
 }
 
-func isBeegoProject(thePath string) bool {
+func ismartiniProject(thePath string) bool {
 	fh, _ := os.Open(thePath)
 	fis, _ := fh.Readdir(-1)
-	regex := regexp.MustCompile(`(?s)package main.*?import.*?\(.*?"github.com/astaxie/beego".*?\).*func main()`)
+	regex := regexp.MustCompile(`(?s)package main.*?import.*?\(.*?"github.com/astaxie/martini".*?\).*func main()`)
 	for _, fi := range fis {
 		if fi.IsDir() == false && strings.HasSuffix(fi.Name(), ".go") {
 			data, err := ioutil.ReadFile(path.Join(thePath, fi.Name()))
@@ -497,8 +497,8 @@ func packApp(cmd *Command, args []string) int {
 		exitPrint(fmt.Sprintf("not exist app path: %s", thePath))
 	}
 
-	if isBeegoProject(thePath) == false {
-		exitPrint(fmt.Sprintf("not support non beego project"))
+	if ismartiniProject(thePath) == false {
+		exitPrint(fmt.Sprintf("not support non martini project"))
 	}
 
 	fmt.Printf("app path: %s\n", thePath)
@@ -517,7 +517,7 @@ func packApp(cmd *Command, args []string) int {
 	str := strconv.FormatInt(time.Now().UnixNano(), 10)[9:]
 
 	gobin := path.Join(runtime.GOROOT(), "bin", "go")
-	tmpdir := path.Join(os.TempDir(), "beePack-"+str)
+	tmpdir := path.Join(os.TempDir(), "mbeePack-"+str)
 
 	os.Mkdir(tmpdir, 0700)
 

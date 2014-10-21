@@ -1,4 +1,4 @@
-// Copyright 2013 bee authors
+// Copyright 2013 mbee authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License"): you may
 // not use this file except in compliance with the License. You may obtain
@@ -23,9 +23,9 @@ import (
 
 var cmdNew = &Command{
 	UsageLine: "new [appname]",
-	Short:     "create an application base on beego framework",
+	Short:     "create an application base on martini framework",
 	Long: `
-create an application base on beego framework,
+create an application base on martini framework,
 
 which in the current path with folder named [appname].
 
@@ -214,7 +214,7 @@ var indextpl = `<!DOCTYPE html>
 			  <div class="hero-text">
 			    <h1>Welcome to Martini!</h1>
 			    <p class="description">
-			    	Beego is a simple & powerful Go web framework which is inspired by tornado and sinatra.
+			    	martini is a simple & powerful Go web framework which is inspired by tornado and sinatra.
 			    <br />
 			    	Official website: <a href="http://{{.Website}}">{{.Website}}</a>
 			    <br />

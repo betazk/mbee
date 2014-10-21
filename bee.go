@@ -1,4 +1,4 @@
-// Copyright 2013 bee authors
+// Copyright 2013 mbee authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License"): you may
 // not use this file except in compliance with the License. You may obtain
@@ -12,7 +12,7 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-// Bee is a tool for developling applications based on beego framework.
+// mbee is a tool for developling applications based on martini framework.
 package main
 
 import (
@@ -25,7 +25,7 @@ import (
 	"strings"
 )
 
-const version = "1.2.2"
+const version = "0.1.0"
 
 type Command struct {
 	// Run runs the command.
@@ -115,31 +115,31 @@ func main() {
 		}
 	}
 
-	fmt.Fprintf(os.Stderr, "bee: unknown subcommand %q\nRun 'bee help' for usage.\n", args[0])
+	fmt.Fprintf(os.Stderr, "mbee: unknown subcommand %q\nRun 'mbee help' for usage.\n", args[0])
 	os.Exit(2)
 }
 
-var usageTemplate = `Bee is a tool for managing beego framework.
+var usageTemplate = `mbee is a tool for managing martini framework.
 
 Usage:
 
-	bee command [arguments]
+	mbee command [arguments]
 
 The commands are:
 {{range .}}{{if .Runnable}}
     {{.Name | printf "%-11s"}} {{.Short}}{{end}}{{end}}
 
-Use "bee help [command]" for more information about a command.
+Use "mbee help [command]" for more information about a command.
 
 Additional help topics:
 {{range .}}{{if not .Runnable}}
     {{.Name | printf "%-11s"}} {{.Short}}{{end}}{{end}}
 
-Use "bee help [topic]" for more information about that topic.
+Use "mbee help [topic]" for more information about that topic.
 
 `
 
-var helpTemplate = `{{if .Runnable}}usage: bee {{.UsageLine}}
+var helpTemplate = `{{if .Runnable}}usage: mbee {{.UsageLine}}
 
 {{end}}{{.Long | trim}}
 `
@@ -167,8 +167,8 @@ func help(args []string) {
 		return
 	}
 	if len(args) != 1 {
-		fmt.Fprintf(os.Stdout, "usage: bee help command\n\nToo many arguments given.\n")
-		os.Exit(2) // failed at 'bee help'
+		fmt.Fprintf(os.Stdout, "usage: mbee help command\n\nToo many arguments given.\n")
+		os.Exit(2) // failed at 'mbee help'
 	}
 
 	arg := args[0]
@@ -181,6 +181,6 @@ func help(args []string) {
 		}
 	}
 
-	fmt.Fprintf(os.Stdout, "Unknown help topic %#q.  Run 'bee help'.\n", arg)
-	os.Exit(2) // failed at 'bee help cmd'
+	fmt.Fprintf(os.Stdout, "Unknown help topic %#q.  Run 'mbee help'.\n", arg)
+	os.Exit(2) // failed at 'mbee help cmd'
 }

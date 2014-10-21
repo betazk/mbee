@@ -12,7 +12,7 @@ var cmdVersion = &Command{
 	Long: `
 show the mbee version                  
 
-bee version
+mbee version
     mbee: 0.1.0
 `,
 }
@@ -22,7 +22,7 @@ func init() {
 }
 
 func versionCmd(cmd *Command, args []string) int {
-	fmt.Println("bee   :" + version)
+	fmt.Println("mbee   :" + version)
 	goversion, err := exec.Command("go", "version").Output()
 	if err != nil {
 		log.Fatal(err)
