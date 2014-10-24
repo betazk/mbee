@@ -135,13 +135,33 @@ import (
 	"github.com/go-martini/martini"
 )
 
+var indexTmpl= `<html>
+			<head>
+				<title></title>
+			</head>
+			<style type="text/css">
+				body{
+					background-color: #009999;
+				}
+				h1 {
+					text-align: center;
+					position: absolute;
+			  		left: 450px;
+			  		top: 200px;
+				}
+			</style>
+			<body>
+				<h1>Welcome to Martini's World !</h1>
+			</body>
+		</html>`
+
 func main() {
 	m := martini.Classic()
 	m.Get("/", func() string {
-		return "Hello World"
+		return indexTmpl
 	})
 	m.Run()
-}
+	}
 
 `
 var indextpl = `<!DOCTYPE html>
