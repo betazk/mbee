@@ -118,7 +118,7 @@ func createApp(cmd *Command, args []string) int {
 	writetofile(path.Join(apppath, "conf", "app.conf"), strings.Replace(appconf, "{{.Appname}}", args[0], -1))
 
 	fmt.Println(path.Join(apppath, "main.go"))
-	writetofile(path.Join(apppath, "main.go"), maingo)
+	writetofile(path.Join(apppath, "main.go"), strings.Replace(maingo, "{{.tmpl}}", "`"+indexTmpl+"`", -1))
 
 	ColorLog("[SUCC] New application successfully created!\n")
 	return 0
@@ -129,13 +129,7 @@ httpport = 3000
 runmode = dev
 `
 
-var maingo = `package main
-
-import (
-	"github.com/go-martini/martini"
-)
-
-var indexTmpl= \`<html>
+var indexTmpl = `<html>
 			<head>
 				<title>Martini</title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -154,7 +148,15 @@ var indexTmpl= \`<html>
 			<body>
 				<h1>Welcome to Martini's World !</h1>
 			</body>
-		</html>\`
+		</html>`
+
+var maingo = `package main
+
+import (
+	"github.com/go-martini/martini"
+)
+
+var indexTmpl = {{.tmpl}}
 
 func main() {
 	m := martini.Classic()
