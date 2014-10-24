@@ -137,7 +137,8 @@ import (
 
 var indexTmpl= `<html>
 			<head>
-				<title></title>
+				<title>Martini</title>
+				<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 			</head>
 			<style type="text/css">
 				body{
