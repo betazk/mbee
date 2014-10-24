@@ -135,7 +135,7 @@ import (
 	"github.com/go-martini/martini"
 )
 
-var indexTmpl= `<html>
+var indexTmpl= \`<html>
 			<head>
 				<title>Martini</title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -154,7 +154,7 @@ var indexTmpl= `<html>
 			<body>
 				<h1>Welcome to Martini's World !</h1>
 			</body>
-		</html>`
+		</html>\`
 
 func main() {
 	m := martini.Classic()
