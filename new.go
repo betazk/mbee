@@ -34,19 +34,14 @@ The [appname] folder has following structure:
     |- main.go
     |- conf
         |-  app.conf
-    |- controllers
-         |- default.go
     |- models
-    |- routers
-         |- router.go
     |- tests
          |- default_test.go
 	|- static
          |- js
          |- css
          |- img
-    |- views
-        index.tpl
+    |- templates
 
 `,
 }
@@ -112,8 +107,8 @@ func createApp(cmd *Command, args []string) int {
 	fmt.Println(path.Join(apppath, "static", "css") + string(path.Separator))
 	os.Mkdir(path.Join(apppath, "static", "img"), 0755)
 	fmt.Println(path.Join(apppath, "static", "img") + string(path.Separator))
-	fmt.Println(path.Join(apppath, "views") + string(path.Separator))
-	os.Mkdir(path.Join(apppath, "views"), 0755)
+	fmt.Println(path.Join(apppath, "templates") + string(path.Separator))
+	os.Mkdir(path.Join(apppath, "templates"), 0755)
 	fmt.Println(path.Join(apppath, "conf", "app.conf"))
 	writetofile(path.Join(apppath, "conf", "app.conf"), strings.Replace(appconf, "{{.Appname}}", args[0], -1))
 
@@ -166,89 +161,6 @@ func main() {
 	m.Run()
 	}
 
-`
-var indextpl = `<!DOCTYPE html>
-
-<html>
-  	<head>
-    	<title>Martini</title>
-    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
-		<style type="text/css">
-			body {
-				margin: 0px;
-				font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-				font-size: 14px;
-				line-height: 20px;
-				color: rgb(51, 51, 51);
-				background-color: rgb(255, 255, 255);
-			}
-
-			.hero-unit {
-				padding: 60px;
-				margin-bottom: 30px;
-				border-radius: 6px 6px 6px 6px;
-			}
-
-			.container {
-				width: 940px;
-				margin-right: auto;
-				margin-left: auto;
-			}
-
-			.row {
-				margin-left: -20px;
-			}
-
-			h1 {
-				margin: 10px 0px;
-				font-family: inherit;
-				font-weight: bold;
-				text-rendering: optimizelegibility;
-			}
-
-			.hero-unit h1 {
-				margin-bottom: 0px;
-				font-size: 60px;
-				line-height: 1;
-				letter-spacing: -1px;
-				color: inherit;
-			}
-
-			.description {
-				padding-top: 5px;
-				padding-left: 5px;
-				font-size: 18px;
-				font-weight: 200;
-				line-height: 30px;
-				color: inherit;
-			}
-
-			p {
-				margin: 0px 0px 10px;
-			}
-		</style>
-	</head>
-
-  	<body>
-  		<header class="hero-unit" style="background-color:#A9F16C">
-			<div class="container">
-			<div class="row">
-			  <div class="hero-text">
-			    <h1>Welcome to Martini!</h1>
-			    <p class="description">
-			    	martini is a simple & powerful Go web framework which is inspired by tornado and sinatra.
-			    <br />
-			    	Official website: <a href="http://{{.Website}}">{{.Website}}</a>
-			    <br />
-			    	Contact me: {{.Email}}
-			    </p>
-			  </div>
-			</div>
-			</div>
-		</header>
-	</body>
-</html>
 `
 
 func writetofile(filename, content string) {
