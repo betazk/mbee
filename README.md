@@ -44,6 +44,7 @@ mbee new
 ===
 
 Creating a new martini web application is no big deal, too.
+
 	$ mbee new myapp
 	[INFO] Creating application...
 	/home/zhengkang/goPath/src/myapp/
