@@ -93,8 +93,10 @@ func runApp(cmd *Command, args []string) int {
 		}
 	}
 
-	NewWatcher(paths, files, false)
-	Autobuild(files, false)
+	NewWatcher(paths, files)
+
+	Autobuild(files)
+
 	for {
 		select {
 		case <-exit:

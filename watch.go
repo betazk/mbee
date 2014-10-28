@@ -34,7 +34,7 @@ var (
 	buildPeriod time.Time
 )
 
-func NewWatcher(paths []string, files []string, isgenerate bool) {
+func NewWatcher(paths []string, files []string) {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		ColorLog("[ERRO] Fail to create new Watcher[ %s ]\n", err)
@@ -71,7 +71,7 @@ func NewWatcher(paths []string, files []string, isgenerate bool) {
 
 				if isbuild {
 					ColorLog("[EVEN] %s\n", e)
-					go Autobuild(files, isgenerate)
+					go Autobuild(files)
 				}
 			case err := <-watcher.Error:
 				ColorLog("[WARN] %s\n", err.Error()) // No need to exit here
@@ -110,7 +110,7 @@ func getFileModTime(path string) int64 {
 	return fi.ModTime().Unix()
 }
 
-func Autobuild(files []string, isgenerate bool) {
+func Autobuild(files []string) {
 	state.Lock()
 	defer state.Unlock()
 
@@ -146,14 +146,6 @@ func Autobuild(files []string, isgenerate bool) {
 				}
 			}
 		}
-	}
-
-	if isgenerate {
-		icmd := exec.Command("bee", "generate", "docs")
-		icmd.Stdout = os.Stdout
-		icmd.Stderr = os.Stderr
-		icmd.Run()
-		ColorLog("============== generate docs ===================\n")
 	}
 
 	if err == nil {
