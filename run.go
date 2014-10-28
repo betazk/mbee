@@ -15,6 +15,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	path "path/filepath"
@@ -44,6 +45,17 @@ when the file has changed mbee will auto go build and restart the app
 `,
 }
 
+type ListOpts []string
+
+func (opts *ListOpts) String() string {
+	return fmt.Sprint(*opts)
+}
+
+func (opts *ListOpts) Set(value string) error {
+	*opts = append(*opts, value)
+	return nil
+}
+
 var mainFiles ListOpts
 
 func init() {
@@ -64,11 +76,6 @@ func runApp(cmd *Command, args []string) int {
 		appname = args[0]
 	}
 	Debugf("current path:%s\n", crupath)
-
-	// err := loadConfig()
-	// if err != nil {
-	// 	ColorLog("[ERRO] Fail to parse bee.json[ %s ]\n", err)
-	// }
 
 	var paths []string
 
