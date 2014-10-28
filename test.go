@@ -58,14 +58,14 @@ func testApp(cmd *Command, args []string) int {
 	crupath, _ := os.Getwd()
 	Debugf("current path:%s\n", crupath)
 
-	err := loadConfig()
-	if err != nil {
-		ColorLog("[ERRO] Fail to parse bee.json[ %s ]\n", err)
-	}
+	// err := loadConfig()
+	// if err != nil {
+	// 	ColorLog("[ERRO] Fail to parse bee.json[ %s ]\n", err)
+	// }
 	var paths []string
 	readAppDirectories(crupath, &paths)
 
-	NewWatcher(paths, nil, false)
+	NewWatcher(paths, nil)
 	appname = args[0]
 	for {
 		select {

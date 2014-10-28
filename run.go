@@ -65,10 +65,10 @@ func runApp(cmd *Command, args []string) int {
 	}
 	Debugf("current path:%s\n", crupath)
 
-	err := loadConfig()
-	if err != nil {
-		ColorLog("[ERRO] Fail to parse bee.json[ %s ]\n", err)
-	}
+	// err := loadConfig()
+	// if err != nil {
+	// 	ColorLog("[ERRO] Fail to parse bee.json[ %s ]\n", err)
+	// }
 
 	var paths []string
 
@@ -80,10 +80,6 @@ func runApp(cmd *Command, args []string) int {
 	if len(gps) == 0 {
 		ColorLog("[ERRO] Fail to start[ %s ]\n", "$GOPATH is not set or empty")
 		os.Exit(2)
-	}
-	gopath := gps[0]
-	for _, p := range conf.DirStruct.Others {
-		paths = append(paths, strings.Replace(p, "$GOPATH", gopath, -1))
 	}
 
 	files := []string{}

@@ -119,31 +119,26 @@ func Autobuild(files []string) {
 	os.Chdir(path)
 
 	cmdName := "go"
-	if conf.Gopm.Enable {
-		cmdName = "gopm"
-	}
 
 	var err error
 	// For applications use full import path like "github.com/.../.."
 	// are able to use "go install" to reduce build time.
-	if conf.GoInstall || conf.Gopm.Install {
-		icmd := exec.Command("go", "list", "./...")
-		buf := bytes.NewBuffer([]byte(""))
-		icmd.Stdout = buf
-		err = icmd.Run()
-		if err == nil {
-			list := strings.Split(buf.String(), "\n")[1:]
-			for _, pkg := range list {
-				if len(pkg) == 0 {
-					continue
-				}
-				icmd = exec.Command(cmdName, "install", pkg)
-				icmd.Stdout = os.Stdout
-				icmd.Stderr = os.Stderr
-				err = icmd.Run()
-				if err != nil {
-					break
-				}
+	icmd := exec.Command("go", "list", "./...")
+	buf := bytes.NewBuffer([]byte(""))
+	icmd.Stdout = buf
+	err = icmd.Run()
+	if err == nil {
+		list := strings.Split(buf.String(), "\n")[1:]
+		for _, pkg := range list {
+			if len(pkg) == 0 {
+				continue
+			}
+			icmd = exec.Command(cmdName, "install", pkg)
+			icmd.Stdout = os.Stdout
+			icmd.Stderr = os.Stderr
+			err = icmd.Run()
+			if err != nil {
+				break
 			}
 		}
 	}
@@ -201,8 +196,6 @@ func Start(appname string) {
 	cmd = exec.Command(appname)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	cmd.Args = append([]string{appname}, conf.CmdArgs...)
-	cmd.Env = append(os.Environ(), conf.Envs...)
 
 	go cmd.Run()
 	ColorLog("[INFO] %s is running...\n", appname)
